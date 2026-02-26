@@ -3284,7 +3284,7 @@ MonoBehaviour:
   dashMovementCooldown: 5
   dashDistance: 5
   dashSpeed: 5
-  grappleTargetDistance: 5
+  grappleTargetDistance: 4
   grappleDuration: 0.5
   grappleSpeed: 10
   dashCD: 2
