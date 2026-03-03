@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:controls="UI.Controls" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/CustomBars.uss?fileID=7433441132597879392&amp;guid=4e35a7aec36fa524798d10a489f04919&amp;type=3#CustomBars" />
+    <ui:VisualElement name="Panel" data-source="project://database/Assets/UI/CustomBars.uss?fileID=7433441132597879392&amp;guid=4e35a7aec36fa524798d10a489f04919&amp;type=3#CustomBars" class="panel" style="align-items: flex-start; justify-content: flex-start; margin-top: 10px; margin-left: 10px;">
+        <CustomBar minValue="0" maxValue="100" barValue="100" label="Health" max-value="100" data-source-type="IDamageable, Assembly-CSharp" data-source="project://database/Assets/Scripts/ScriptableObjects/DamageableData.asset?fileID=11400000&amp;guid=a5a3622ea729f6c4c89ee58d7a2f1c6f&amp;type=2#DamageableData" bar-value="32" focusable="true" class="healthBar health bar" style="border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0; background-image: url(&quot;project://database/Assets/UI/healthbar.png?fileID=2800000&amp;guid=d6db8ca852cdbfd42ab48e57ab1eb758&amp;type=3#healthbar&quot;); background-color: rgba(0, 0, 0, 0); align-items: flex-start; justify-content: space-around; height: 59px; width: 322px;">
+            <Bindings>
+                <ui:DataBinding property="barValue" data-source-path="health" binding-mode="ToTarget" />
+            </Bindings>
+        </CustomBar>
+    </ui:VisualElement>
+</ui:UXML>

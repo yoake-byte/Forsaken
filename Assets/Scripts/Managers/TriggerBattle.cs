@@ -7,7 +7,7 @@ public class TriggerBattle : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            manager.BeginBattle();
+            manager.MakeDecision();
         }
     }
 }

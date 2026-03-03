@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private GameObject lossScreen;
     [SerializeField] private GameObject winScreen;
+    [SerializeField] private GameObject decisionScreen;
 
     [Header("Control Variables")]
     [SerializeField] private int numStages;
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+        fightStarted = false;
         bossStateMachine = boss.GetComponent<BossStateMachine>();
         playerStateMachine = player.GetComponent<PlayerStateMachine>();
         SetTimeScale(1f);
@@ -52,11 +54,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void MakeDecision()
+    {
+        Time.timeScale = 0.3f;
+        aggroArea.SetActive(false);
+        decisionScreen.SetActive(true);
+    }
     public void BeginBattle()
     {
+        Debug.Log("beginning battle");
+        Time.timeScale = 1f;
         IsTransitioning = true;
         fightStarted = true;
-        aggroArea.SetActive(false);
+        decisionScreen.SetActive(false);
+    }
+
+    public void AbandonEnding()
+    {
+        Time.timeScale = 1f;
+        decisionScreen.SetActive(false);
+        gameOver = true;
+        playerStateMachine.OnDisable();
+        cutsceneManager.PlayCutScene(0);
+        
     }
 
     //insert some way to transition here
