@@ -25,6 +25,19 @@ public class PauseManager : MonoBehaviour
         }
     }
 
+    public void RestartGame()
+    {
+        SaveManager.DeleteData();
+        SceneManager.LoadScene("Level1.1");
+    }
+
+    public void TryAgain()
+    {
+        SaveData saveData = SaveManager.Load();
+        if (string.IsNullOrEmpty(saveData.lastSaveSpotID)) RestartGame();
+        int sceneIndex = saveData.currentSceneIndex;
+        SceneManager.LoadScene(sceneIndex);
+    }
     // Resume game
     public void ResumeGame()
     {

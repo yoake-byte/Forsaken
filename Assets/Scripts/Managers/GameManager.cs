@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject boss;
     [SerializeField] private CutsceneManager cutsceneManager;
     [SerializeField] private GameObject aggroArea;
+    [SerializeField] private AudioSource[] songs;
+
 
     [Header("UI References")]
     [SerializeField] private GameObject lossScreen;
@@ -70,6 +72,7 @@ public class GameManager : MonoBehaviour
     public void BeginBattle()
     {
         Debug.Log("beginning battle");
+        songs[currentStage - 1].Play();
         Time.timeScale = 1f;
         IsTransitioning = true;
         fightStarted = true;
@@ -89,6 +92,7 @@ public class GameManager : MonoBehaviour
     //insert some way to transition here
     public void BeginNextStage()
     {
+        songs[currentStage - 1].Stop();
         currentStage += 1;
         cutsceneManager.PlayCutScene(currentStage);
         Debug.Log("entering next stage");
@@ -96,6 +100,7 @@ public class GameManager : MonoBehaviour
         bossStateMachine.Health = 100;
         bossStateMachine.Damage *= 2;
         bossStateMachine.MoveSpeed *= 1.5f;
+        songs[currentStage - 1].Play();
     }
 
     public void UnlockPlayerAbility(int ability)
