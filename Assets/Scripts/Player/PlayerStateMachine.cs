@@ -164,7 +164,7 @@ public class PlayerStateMachine : StateMachine, IDamageable
 
     protected override void UpdateState()
     {
-        if (dialogueUI.IsOpen) return;
+        if (dialogueUI != null && dialogueUI.IsOpen) return;
         HandleMovement();
         currentState.UpdateStates();
     }

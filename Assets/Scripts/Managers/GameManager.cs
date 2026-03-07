@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
     [Header("Control Variables")]
     [SerializeField] private int numStages;
     private int currentStage = 1;
-    private int currentScene = 0;
     private static bool fightStarted = false;
     private bool isTransitioning = false;
     private bool gameOver = false;
@@ -95,6 +94,7 @@ public class GameManager : MonoBehaviour
         songs[currentStage - 1].Stop();
         currentStage += 1;
         cutsceneManager.PlayCutScene(currentStage);
+        fightStarted = true;
         Debug.Log("entering next stage");
         IsTransitioning = true;
         bossStateMachine.Health = 100;

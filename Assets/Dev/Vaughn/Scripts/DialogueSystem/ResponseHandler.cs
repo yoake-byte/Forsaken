@@ -25,11 +25,11 @@ public class ResponseHandler : MonoBehaviour
         
         foreach (Response response in responses)
         {
+            
             GameObject responseButton = Instantiate(responseButtonTemplate.gameObject, responseContainer);
             responseButton.gameObject.SetActive(true);
             responseButton.GetComponent<TMP_Text>().text = response.ResponseText;
             responseButton.GetComponent<Button>().onClick.AddListener(() => OnPickedResponse(response));
-
             tempResponseButtons.Add(responseButton);
 
             responseBoxHeight += responseButtonTemplate.sizeDelta.y;
@@ -39,7 +39,7 @@ public class ResponseHandler : MonoBehaviour
         responseBox.gameObject.SetActive(true);
     }
 
-    private void OnPickedResponse(Response response)
+    public void OnPickedResponse(Response response)
     {
         responseBox.gameObject.SetActive(false);
 

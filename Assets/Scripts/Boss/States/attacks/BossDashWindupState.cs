@@ -15,7 +15,6 @@ public class BossDashWindupState : State
         bossContext.Anim.SetTrigger("charge");
         bossContext.AppliedMovementX = 0;
         bossContext.LastDashTime = Time.time;
-        Debug.Log("Attempting a dash here!");
     }
     public override void UpdateState()
     {

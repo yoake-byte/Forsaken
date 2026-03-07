@@ -10,17 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98b97d428ca44f1468506e98addd1ee8, type: 3}
-  m_Name: Test
+  m_Name: Thinking
   m_EditorClassIdentifier: 
   dialogue:
-  - 'This is my Dialogue!
-
-    Hello!'
-  - 'This is our second Dialogue
-
-    Goodbye!'
-  responses:
-  - responseText: Yes
-    dialogueObject: {fileID: 11400000, guid: 0752fc9e76c6ee44fabe0199a50c1258, type: 2}
-  - responseText: No
-    dialogueObject: {fileID: 11400000, guid: cb61e93894019a248a19fb6d406c63c9, type: 2}
+  - '*The professor would know, although he''s not here anymore*'
+  responses: []

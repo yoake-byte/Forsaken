@@ -1470,7 +1470,7 @@ Transform:
   m_GameObject: {fileID: 321904000}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 206.4, y: 0, z: 0}
+  m_LocalPosition: {x: 167.6, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1763,7 +1763,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 15.351601, y: 1.6273782}
+  m_Offset: {x: 24.48319, y: 1.6273782}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1773,7 +1773,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 40.274063, y: 1.3254795}
+  m_Size: {x: 58.537243, y: 1.3254795}
   m_EdgeRadius: 0
 --- !u!1 &468366106
 GameObject:
@@ -2470,7 +2470,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2116196398618925377, guid: 193c249e372e47042bbd482a433b6183, type: 3}
       propertyPath: attackDamage
-      value: 100
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2232978214380274909, guid: 193c249e372e47042bbd482a433b6183, type: 3}
       propertyPath: m_Layer
@@ -2765,9 +2765,10 @@ PrefabInstance:
     - {fileID: 2225051200622479265, guid: 193c249e372e47042bbd482a433b6183, type: 3}
     - {fileID: 3330755270964382869, guid: 193c249e372e47042bbd482a433b6183, type: 3}
     - {fileID: 30695349841600995, guid: 193c249e372e47042bbd482a433b6183, type: 3}
+    - {fileID: 573808203815208085, guid: 193c249e372e47042bbd482a433b6183, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4700727216108238112, guid: 193c249e372e47042bbd482a433b6183, type: 3}
-      insertIndex: 1
+      insertIndex: -1
       addedObject: {fileID: 1606425958}
     - targetCorrespondingSourceObject: {fileID: 4263150628800304409, guid: 193c249e372e47042bbd482a433b6183, type: 3}
       insertIndex: -1
@@ -2948,7 +2949,7 @@ Transform:
   m_GameObject: {fileID: 767074632}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 91.9, y: 0, z: 0}
+  m_LocalPosition: {x: 102.7, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3591,6 +3592,10 @@ PrefabInstance:
       propertyPath: manager
       value: 
       objectReference: {fileID: 1498093552}
+    - target: {fileID: 4934567932455743890, guid: f658be0e1921d404fab436784adcace6, type: 3}
+      propertyPath: attackDog
+      value: 
+      objectReference: {fileID: 7434262238889283829, guid: 56d86d85a3c83854e90d37c1aa2cec13, type: 3}
     - target: {fileID: 5248356043478672508, guid: f658be0e1921d404fab436784adcace6, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.9877169
