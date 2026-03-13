@@ -22,6 +22,8 @@ public class CutsceneManager : MonoBehaviour
 
     public void PlayCutScene(int index)
     {
+        
+        manager.FightStarted = false;
         cutscenes[index].GetComponent<PlayableDirector>().Play();
         currentCutscene = index;
     }
@@ -29,9 +31,13 @@ public class CutsceneManager : MonoBehaviour
     public void OnCutsceneStart()
     {
         playerStateMachine.OnDisable();
-        manager.FightStarted = false;
-        bossStateMachine.IsStunned = false;
-        bossStateMachine.JumpToState(new BossStartState(bossStateMachine));
+        if (bossStateMachine.gameObject.activeInHierarchy == true)
+        {
+            bossStateMachine.IsStunned = false;
+            bossStateMachine.JumpToState(new BossStartState(bossStateMachine));  
+            manager.FightStarted = false;
+        }
+        
     }
 
     public void OnCutsceneEnd()
@@ -39,6 +45,10 @@ public class CutsceneManager : MonoBehaviour
         if (!manager.GameOver)
         {
             playerStateMachine.OnEnable();
+        }
+        if (bossStateMachine.gameObject.activeInHierarchy == true)
+        {
+            bossStateMachine.IsStunned = false;
             manager.FightStarted = true;
         }
         cutscenes[currentCutscene].GetComponent<PlayableDirector>().Stop();

@@ -73,7 +73,7 @@ public class UIController : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         InitializeUIDocument();
     }

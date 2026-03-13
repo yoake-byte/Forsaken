@@ -5,6 +5,10 @@ using TMPro;
 
 public class PlayerStateMachine : StateMachine, IDamageable
 {
+    [SerializeField]private DialogueUI dialogueUI;
+    public DialogueUI DialogueUI => dialogueUI;
+    public IInteractable Interactable { get; set; }
+
     //control variables
     [Header("Movement Control Variables")]
     [SerializeField] private  float runSpeed = 7f;
@@ -27,8 +31,8 @@ public class PlayerStateMachine : StateMachine, IDamageable
     private Vector2 currentMovementInput;
     private bool isMovementPressed;
     private bool canMove = true;
-    private bool shootUnlocked = false;
-    private bool canDash = false;
+    private bool shootUnlocked = true;
+    private bool canDash = true;
     private bool isRunPressed;
     private bool isJumpPressed;
     private bool isHitPressed;
@@ -47,6 +51,7 @@ public class PlayerStateMachine : StateMachine, IDamageable
     private bool isBlocking = false;
     private bool isParrying = false;
     private bool canParry = false;
+    private bool hitWall = false;
 
     //player info
     private int health;
@@ -59,6 +64,8 @@ public class PlayerStateMachine : StateMachine, IDamageable
     private Player_Ranged rangedWeapon;
     private int currentParryCooldownId;
     private ParticleSystem damageTakenParticles;
+    [SerializeField] private ParticleSystem parryParticles;
+
     //getters and settesr
     public GameManager Manager {get {return manager;}}
     public bool CanMove {get {return canMove;} set {canMove = value;}}
@@ -95,6 +102,7 @@ public class PlayerStateMachine : StateMachine, IDamageable
 
     public bool IsParrying {get {return isParrying;} set {isParrying = value;}}
     public bool IsHurt{get {return isHurt;} set {isHurt = value;}}
+     public bool HitWall{get {return hitWall;} set {hitWall = value;}}
     public bool AttackFinished {get {return attackFinished; } set {attackFinished = value;}}
     public bool BlockFinished {get {return blockFinished; } set {blockFinished = value;}}
     public bool ShootStarted {get {return shootStarted; } set {shootStarted = value;}}
@@ -102,7 +110,7 @@ public class PlayerStateMachine : StateMachine, IDamageable
     public bool DashStarted {get {return dashStarted; } set {dashStarted = value;}}
     public bool DashFinished {get {return dashFinished; } set {dashFinished = value;}}
     public bool IsDashing {get {return isDashing; } set {isDashing = value;}}
-    public bool CanDash {get {return canDash;}}
+    public bool CanDash {get {return canDash && !hitWall;}}
     public bool ShootUnlocked {get {return shootUnlocked;}}
     public bool HurtFinished {get {return hurtFinished; } set {hurtFinished = value;}}
     public bool Grounded {get {return grounded;} set {grounded = value;}}
@@ -115,6 +123,7 @@ public class PlayerStateMachine : StateMachine, IDamageable
     [SerializeField] public int Health {get {return health;} set {health = value;}}
     [SerializeField] public float Cooldown {get {return damageCooldown;} set {damageCooldown = value;}}
     public GameObject DashTrail {get {return dashTrail;}}
+    public BoxCollider2D SwordHitbox {get {return swordHitbox;}}
     public Player_Ranged RangedWeapon { get { return rangedWeapon; } }
 
     protected override void Init()
@@ -128,7 +137,6 @@ public class PlayerStateMachine : StateMachine, IDamageable
         swordHitbox = sprite.Find("sword").GetComponent<BoxCollider2D>();
         rangedWeapon = GetComponentInChildren<Player_Ranged>();
         damageTakenParticles = sprite.Find("hit received particles").GetComponent<ParticleSystem>();
-
         //set player input callbacks
         playerInput.CharacterControls.Move.started += OnMovementPerformed;
         playerInput.CharacterControls.Move.canceled += OnMovementCancelled;
@@ -143,6 +151,8 @@ public class PlayerStateMachine : StateMachine, IDamageable
         playerInput.CharacterControls.Shoot.canceled += OnShoot;
         playerInput.CharacterControls.Block.performed += OnBlock;
         playerInput.CharacterControls.Block.canceled += OnBlock;
+        playerInput.CharacterControls.Interact.performed += OnInteractPressed;
+        playerInput.CharacterControls.Interact.canceled += OnInteractPressed;
 
         Health = 100;
         Cooldown = 1f;
@@ -153,13 +163,21 @@ public class PlayerStateMachine : StateMachine, IDamageable
     {
         currentState = new PlayerIdleState(this);
         currentState.EnterState();
-        UpdateHealthText();
     }
 
     protected override void UpdateState()
     {
+        if (dialogueUI != null && dialogueUI.IsOpen) return;
         HandleMovement();
         currentState.UpdateStates();
+    }
+
+    void OnInteractPressed(InputAction.CallbackContext context)
+    {
+        if (Interactable != null && Interactable.CanInteract())
+        {
+           Interactable?.Interact(this); 
+        }
     }
 
     private void HandleMovement()
@@ -175,7 +193,7 @@ public class PlayerStateMachine : StateMachine, IDamageable
 
     protected override void FaceMovement()
     {
-        if (rb.linearVelocity.x != 0)
+        if (IsMovementPressed)
         {
             sprite.localScale = new Vector3(Mathf.Sign(rb.linearVelocity.x), 1, 1);
         }
@@ -201,6 +219,7 @@ public class PlayerStateMachine : StateMachine, IDamageable
     }
     void OnRunEnd(InputAction.CallbackContext context)
     {
+        Debug.Log("cancelled run");
         isRunPressed = false;
         
     }
@@ -254,6 +273,7 @@ public class PlayerStateMachine : StateMachine, IDamageable
 
     public void StartParry()
     {
+        parryParticles.Play();
         Debug.Log("starting parry");
         StartCoroutine(StartParryInternal());
         IsHurt = false;
@@ -277,7 +297,6 @@ public class PlayerStateMachine : StateMachine, IDamageable
             currentState.SwitchState(new PlayerHurtState(this));
             damageTakenParticles.Play();
         }
-        UpdateHealthText();
         if (Health <= 0f)
         {
             manager.CheckWinStatus();
@@ -301,14 +320,12 @@ public class PlayerStateMachine : StateMachine, IDamageable
     void OnBlockAnimationStart()
     {
         BlockFinished = false;
-        swordHitbox.enabled = true;
 
     }
 
     void OnBlockAnimationFinish()
     {
         BlockFinished = true;
-        swordHitbox.enabled = false;
     }
 
     void OnShootAnimationStart()
@@ -340,6 +357,9 @@ public class PlayerStateMachine : StateMachine, IDamageable
         if (other.gameObject.CompareTag("Ground"))
         {
             grounded = true;
+        } else if (LayerMask.LayerToName(other.gameObject.layer).Equals("Background"))
+        {
+            hitWall = true;
         }
     }
 
@@ -348,6 +368,10 @@ public class PlayerStateMachine : StateMachine, IDamageable
         if (other.gameObject.CompareTag("Ground"))
         {
             grounded = false;
+        } else if (LayerMask.LayerToName(other.gameObject.layer).Equals("Background"))
+        {
+            Debug.Log($"Exit: {other.gameObject.name}, tag: {other.gameObject.tag}, layer: {LayerMask.LayerToName(other.gameObject.layer)}");
+            hitWall = false;
         }
     }
 
@@ -359,19 +383,12 @@ public class PlayerStateMachine : StateMachine, IDamageable
         {
             shootUnlocked = true;
             Debug.Log("you can now shoot! click LMB to shoot at your mouse position");
-            shootIcon.SetActive(true);
+            //shootIcon.SetActive(true);
         } else if (abilityNum == 3)
         {
             canDash = true;
             Debug.Log("you can now shoot! press shift to launch yourself!");
-            dashBar.gameObject.SetActive(true);
+            //dashBar.gameObject.SetActive(true);
         }
     }
-
-    public void UpdateHealthText()
-    {
-        healthBar.text = "Health: " + Health.ToString();
-    }
-
-
 }

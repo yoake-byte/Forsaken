@@ -5,6 +5,7 @@ public class BossStateMachine : StateMachine, IDamageable
     [Header("Object References")]
     [SerializeField] private GameManager manager;
     [SerializeField] private Transform summonPosition;
+    [SerializeField] private GameObject attackDog;
 
     [Header("Attack Controls")]
     [SerializeField] private float targetDistance;
@@ -64,6 +65,8 @@ public class BossStateMachine : StateMachine, IDamageable
     public int HurtFinished {get {return hurtFinished; } set {hurtFinished = value;}}
     public int IntroFinished {get {return introFinished; } set {introFinished = value;}}
     public int Health {get {return health;} set {health = value;}}
+    public int CurEnemies {get {return curEnemies;} set {curEnemies = value;}}
+    public GameObject AttackDog {get {return attackDog;}}
     public int Damage {get {return damage;} set {damage = value;}}
     public float LastDashMovementTime { get { return lastDashMovementTime; } set { lastDashMovementTime = value; } }
     public float LastDashTime { get { return lastDashTime; } set { lastDashTime = value; } }
@@ -139,7 +142,6 @@ public class BossStateMachine : StateMachine, IDamageable
             Health -= damage;
             Debug.Log("Enemy Health: " + Health);
             //flashCharacter();
-
             damageTakenParticles.Play();
 
         }
@@ -160,7 +162,7 @@ public class BossStateMachine : StateMachine, IDamageable
     }
     public bool CanSummon()
     {
-        return Time.time >= lastDroneSummon + summonCooldown;
+        return Time.time >= lastDroneSummon + summonCooldown && curEnemies < numEnemies;
     }
 
 
@@ -218,5 +220,5 @@ public class BossStateMachine : StateMachine, IDamageable
         JumpToState(new BossStunState(this));
     }
     
-
+    
 }

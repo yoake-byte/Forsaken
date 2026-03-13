@@ -54,6 +54,5 @@ public partial class CustomBar : VisualElement
         float width = track.resolvedStyle.width;
 
         fill.style.width = width * percent;
-        Debug.Log($"Updated bar: {barValue}/{maxValue} ({percent * 100}%)");
     }
 }

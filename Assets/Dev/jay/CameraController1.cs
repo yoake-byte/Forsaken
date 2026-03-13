@@ -95,7 +95,7 @@ public class CameraController1 : MonoBehaviour
 
 
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
         if (!player || !runtimeCamera) return;
         if (cameraRigs.Count == 0) return;
@@ -174,11 +174,13 @@ public class CameraController1 : MonoBehaviour
 
     private void ApplyRigSample(float playerX)
     {
+        Vector3 desiredPosition = new();
+        float desiredOrthographic;
+
         for (int i = 0; i < cameraRigs.Count; i++)
             CacheRig(cameraRigs[i]);
 
-        Vector3 desiredPosition = new();
-        float desiredOrthographic;
+        
 
         if (cameraRigs.Count == 1)
         {

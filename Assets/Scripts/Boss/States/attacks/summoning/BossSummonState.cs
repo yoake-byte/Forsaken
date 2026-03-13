@@ -1,16 +1,28 @@
+
 using UnityEngine;
 public class BossSummonState : State
 {
     private BossStateMachine bossContext;
+    private GameObject attackDog;
+    private Transform t;
 
     public BossSummonState(BossStateMachine currentContext) : base(currentContext)
     {
         bossContext = currentContext;
+        attackDog = bossContext.AttackDog;
+        t = bossContext.RB.gameObject.transform;
+        Debug.Log("Attemping Summon State");
     }
 
     public override void EnterState(){
+        GameObject dog;
+        bossContext.CurEnemies += 1;
         Debug.Log("summons attack");
         bossContext.Anim.SetTrigger("summon");
+        if (attackDog != null)
+            dog = Object.Instantiate(attackDog, t.position, t.rotation);
+        else 
+            Debug.Log("Attack Dog not assigned!");
     }
 
     public override void UpdateState()

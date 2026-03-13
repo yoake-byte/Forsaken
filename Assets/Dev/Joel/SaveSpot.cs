@@ -37,7 +37,7 @@ public class SaveSpot : MonoBehaviour {
 
     private void Interact() {
         player.Health = 100;
-        player.UpdateHealthText();
+        //player.UpdateHealthText();
         manager.SaveGame(spotID);
         interactPrompt.SetActive(false);
         audioSource.PlayOneShot(saveSound);

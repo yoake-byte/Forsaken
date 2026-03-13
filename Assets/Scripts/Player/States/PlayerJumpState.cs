@@ -35,10 +35,7 @@ public class PlayerJumpState : State
         if (playerContext.IsHurt)
         {
             SwitchState(new PlayerHurtState(playerContext));
-        } else if (playerContext.IsDashPressed && playerContext.CanDash)
-        {
-            SwitchState(new PlayerDashState(playerContext));
-        } else if (playerContext.Grounded && !playerContext.IsMovementPressed )
+        } if (playerContext.Grounded && !playerContext.IsMovementPressed )
         {
             SwitchState(new PlayerIdleState(playerContext));
         } else if (playerContext.Grounded && !playerContext.IsRunPressed)

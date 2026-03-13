@@ -6,20 +6,17 @@ public class Player_Melee : Weapon
     {
         weilder = GameObject.FindGameObjectWithTag("Player").transform;
     }
-    public void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
-       string layer = LayerMask.LayerToName(other.gameObject.layer);
-       
-        if (layer.Equals("Enemies"))
+        string layer = LayerMask.LayerToName(other.gameObject.layer);
+        if (layer == "Enemies" || other.gameObject.CompareTag("Breakable"))
         {
-            Attack(other.gameObject.GetComponent<IDamageable>());
+            IDamageable damageable = other.GetComponent<IDamageable>();
+            if (damageable != null)
+            {
+                Attack(damageable);
+            }
         }
-        // //to-do: why does this trigger later?
-        // else if (other.gameObject.CompareTag("HUE Weapon") && weilder.GetComponent<PlayerStateMachine>().IsBlocking && weilder.GetComponent<PlayerStateMachine>().CanParry)
-        // {
-        //     Debug.Log(other.gameObject.name);
-        //     weilder.GetComponent<PlayerStateMachine>().StartParry();
-        // }
     }
 
 }

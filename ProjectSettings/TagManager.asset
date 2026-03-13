@@ -10,6 +10,8 @@ TagManager:
   - Ground
   - Note
   - HUE Weapon
+  - Breakable
+  - SavePoint
   layers:
   - Default
   - TransparentFX
@@ -53,9 +55,6 @@ TagManager:
   - name: Midground
     uniqueID: 937428819
     locked: 0
-  - name: Foreground
-    uniqueID: 2127914131
-    locked: 0
   - name: Environmental VFX
     uniqueID: 445459845
     locked: 0
@@ -64,6 +63,12 @@ TagManager:
     locked: 0
   - name: VFX
     uniqueID: 4200552967
+    locked: 0
+  - name: Foreground
+    uniqueID: 2127914131
+    locked: 0
+  - name: UI
+    uniqueID: 4115937693
     locked: 0
   m_RenderingLayers:
   - Default

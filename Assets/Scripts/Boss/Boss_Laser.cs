@@ -4,7 +4,7 @@ public class Boss_Laser : Weapon
 {
     protected override void Init()
     {
-        weilder = GameObject.FindGameObjectWithTag("Boss").transform;
+        //weilder = GameObject.FindGameObjectWithTag("Boss").transform;
     }
     public void OnTriggerEnter2D(Collider2D other)
     {   

@@ -1,0 +1,4 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="Healthbar" src="project://database/Assets/UI/CustomUI/Healthbar.uxml?fileID=9197481963319205126&amp;guid=be2f63275ee195842a380453aed6b360&amp;type=3#Healthbar" />
+    <ui:Instance template="Healthbar" style="height: 117px; width: 530px;" />
+</ui:UXML>

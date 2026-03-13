@@ -12,7 +12,6 @@ public class BossChargedDashState : State
         bossContext.Anim.SetTrigger("dashAttack");
         bossContext.AppliedMovementX = ((bossContext.Flipped ? -1 : 1)) * bossContext.MoveSpeed * 3;
         bossContext.LastDashTime = Time.time;
-        Debug.Log("This is existing");
     }
     public override void UpdateState()
     {

@@ -7,12 +7,14 @@ public class DogStateMachine : StateMachine, IDamageable
 
     [Header("Attack Controls")]
     [SerializeField] private float targetDistance;
+    [SerializeField] private float aggroDistance;
     [SerializeField] private float stunTime;
     [SerializeField] private float stunInterval;
     [SerializeField] private int damage;
     [SerializeField] private float damageCooldown;
     [SerializeField] private float jumpForceX;
     [SerializeField] private float jumpForceY;
+    [SerializeField] private int maxHealth = 50;
     
     private bool isFlipped = false;
     private bool isStunned = false;
@@ -45,8 +47,9 @@ public class DogStateMachine : StateMachine, IDamageable
     {
         base.Init();
         sprite = transform.Find("Sprite");
-        Health = 100;
+        Health = maxHealth;
         damageTakenParticles = sprite.Find("hit received particles").GetComponent<ParticleSystem>();
+        manager = GameObject.Find("Management").transform.Find("GameManager").gameObject.GetComponent<GameManager>();
     }
 
     protected override void EnterBeginningState()
@@ -58,6 +61,7 @@ public class DogStateMachine : StateMachine, IDamageable
 
     protected override void UpdateState()
     {
+        Debug.Log(currentState);
         if (!IsTransitioning)
         {
             if (!inAttack)
@@ -125,7 +129,11 @@ public class DogStateMachine : StateMachine, IDamageable
 
     public bool InRange()
     {
-        return Vector3.Distance(transform.position,Player.transform.position) <= TargetDistance;
+        return Mathf.Abs(transform.position.x - Player.transform.position.x) <= TargetDistance;
+    }
+    public bool InAggroRange()
+    {
+        return Mathf.Abs(transform.position.x - Player.transform.position.x) <= aggroDistance;
     }
 
     public void onWindupStart()

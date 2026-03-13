@@ -5,6 +5,7 @@ public class PauseManager : MonoBehaviour
 {
     public static bool gamePaused = false;
     public GameObject pauseMenuUI;
+    public GameObject hud;
 
     void Start()
     {
@@ -25,10 +26,24 @@ public class PauseManager : MonoBehaviour
         }
     }
 
+    public void RestartGame()
+    {
+        SaveManager.DeleteData();
+        SceneManager.LoadScene("Level1.1");
+    }
+
+    public void TryAgain()
+    {
+        SaveData saveData = SaveManager.Load();
+        if (string.IsNullOrEmpty(saveData.lastSaveSpotID)) RestartGame();
+        int sceneIndex = saveData.currentSceneIndex;
+        SceneManager.LoadScene(sceneIndex);
+    }
     // Resume game
     public void ResumeGame()
     {
         pauseMenuUI.SetActive(false);
+        hud.SetActive(true);
         Time.timeScale = 1f;
         gamePaused = false;
 
@@ -40,6 +55,7 @@ public class PauseManager : MonoBehaviour
     public void PauseGame()
     {
         pauseMenuUI.SetActive(true);
+        hud.SetActive(false);
         Time.timeScale = 0f;
         gamePaused = true;
 
@@ -56,6 +72,10 @@ public class PauseManager : MonoBehaviour
     // Main menu (not sure when this will be added but when it does just add this function ig)
     public void LoadMainMenu()
     {
-        
+        Cursor.lockState = CursorLockMode.None;
+        Time.timeScale = 1f;
+        gamePaused = false;
+        pauseMenuUI.SetActive(false);
+        SceneManager.LoadScene("Main_Menu");
     }
 }

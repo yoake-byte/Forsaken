@@ -25,7 +25,7 @@ public class BossGrappleState : State
             SwitchState(new BossTransitionState(bossContext));
             return;
         }
-        lineRenderer.enabled = true;
+        lineRenderer.gameObject.SetActive(true);
         chainStart = lineRenderer.transform;
 
         bossContext.StartCoroutine(AnimateGrapple());
@@ -40,7 +40,7 @@ public class BossGrappleState : State
     {
         Debug.Log("exiting grapple");
         bossContext.Anim.ResetTrigger("grapple");
-        lineRenderer.enabled = false;
+        lineRenderer.gameObject.SetActive(false);
     }
 
     public override void CheckSwitchStates()

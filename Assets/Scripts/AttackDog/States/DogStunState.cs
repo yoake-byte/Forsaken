@@ -1,4 +1,3 @@
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 public class DogStunState : State
 {
@@ -11,7 +10,6 @@ public class DogStunState : State
     }
     public override void EnterState()
     {
-        Debug.Log("dogeth is currently stunned");
         dogContext.Anim.Play("Idle");
         dogContext.AppliedMovementX = 0f;
         dogContext.AppliedMovementY = 0f;

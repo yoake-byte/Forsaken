@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4945154891609739621}
   m_Layer: 8
   m_Name: Laser_bullet_white
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -94414329
-  m_SortingLayer: 6
+  m_SortingLayer: 5
   m_SortingOrder: 50
   m_Sprite: {fileID: 21300000, guid: 7ed65a43c1c204f47929e805ab1f49bc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -212,7 +212,7 @@ TrailRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -94414329
-  m_SortingLayer: 6
+  m_SortingLayer: 5
   m_SortingOrder: 20
   m_Time: 0.2
   m_PreviewTimeScale: 1
