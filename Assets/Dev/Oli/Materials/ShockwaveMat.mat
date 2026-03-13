@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: New Material
-  m_Shader: {fileID: -6465566751694194690, guid: 6bda8233d8ebe4d47ba263188b7f84ae, type: 3}
+  m_Name: ShockwaveMat
+  m_Shader: {fileID: -6465566751694194690, guid: 58a5886b2083ead4bbc6ab80ca6929d8, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -63,8 +63,9 @@ Material:
     - _QueueOffset: 0
     - _Sizefloat: 0.05
     - _ZWrite: 0
-    - _shockwavestrength: 0.036
+    - _shockwavestrength: -0.2
     - _wavedistace: -0.1
+    - _wavedistance: -0.1
     - _xsizeratio: 1.777
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
